@@ -1,30 +1,30 @@
 
-def is_valid(s: str) -> bool:
+def is_valid(s):
     stack = []
-    pairs = {
-        ")": "(",
-        "}": "{",
-        "]": "["
-    }
 
-    for char in s:
-        if char in "({[":
-            stack.append(char)
-        elif char in ")}]":
-            if not stack or stack.pop() != pairs[char]:
+    for ch in s:
+        if ch == '(' or ch == '{' or ch == '[':
+            stack.append(ch)
+
+        else:
+            if len(stack) == 0:
+                return False
+
+            top = stack.pop()
+
+            if ch == ')' and top != '(':
+                return False
+            if ch == '}' and top != '{':
+                return False
+            if ch == ']' and top != '[':
                 return False
 
     return len(stack) == 0
 
 
-def main():
-    s = input("Enter brackets: ")
+s = input("Enter brackets: ")
 
-    if is_valid(s):
-        print("Valid parentheses")
-    else:
-        print("Invalid parentheses")
-
-
-if __name__ == "__main__":
-    main()
+if is_valid(s):
+    print("Valid parentheses")
+else:
+    print("Invalid parentheses")
